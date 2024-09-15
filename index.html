@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" onkeypress="jump()">
+  <head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <link rel="stylesheet" href="style.css">
+     <title>Document</title>
+   </head>
+   <body>
+     <div class="box" id="box">
+       <div class="score" id="score">score : 0</div>
+       <img src="kanguru.png" alt="" id="kanguru"/>
+       <img src="cactus.png" alt="" id="cactus"/>
+       <div class="roadContainer" id="roadContainer">
+         <img src="road.png" alt="" id="road"/>
+       </div>
+     </div>
+   </body>
+   <script>
+    const char = document.getElementById("kanguru")
+    const cactus = document.getElementById("cactus")
+    const playerScore = document.getElementById("score")
+
+    let score = 0
+    let interval = null
+
+
+    let jumlahScore = ()=>{
+      score++
+      playerScore.innerHTML = `Score : ${score} `
+    };
+
+    function jump(){
+      if (char.classList != "animate"){
+      char.classList.add("animate");
+    }
+    setTimeout(function(){  
+      char.classList.remove("animate")
+    },600)
+    let score = 0
+    interval = setInterval(jumlahScore, 100)
+    }
+
+    const ifHitcactus = setInterval(function(){
+      const chartop = parseInt(window.getComputedStyle(char).getPropertyValue("top"))
+      const cactusleft = parseInt(window.getComputedStyle(cactus).getPropertyValue("left"))
+  if(cactusleft < 90 && cactusleft > 0 && chartop >= 60){
+    cactus.style.animation = "none"
+    cactus.style.display = "none"
+    if(confirm("kanguru menabrak kaktus, ingin ulang?")){
+      window.location.reload()
+    }
+  }
+
+    })
+   </script>
+</html>
